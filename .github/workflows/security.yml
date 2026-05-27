@@ -1,0 +1,39 @@
+name: Security Auditing Schedule
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Weekly at Sunday Midnight
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Python deps audit
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Run pip-audit
+        run: |
+          pip install pip-audit
+          pip-audit -r backend/requirements.txt
+
+      # Node.js deps audit
+      - name: Run npm audit
+        run: |
+          cd frontend
+          npm audit --audit-level=high
+
+      # Container static scan
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'table'
+          severity: 'HIGH,CRITICAL'

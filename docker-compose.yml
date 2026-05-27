@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/models:/app/models
+      - ./backend/uploads:/app/uploads
+    environment:
+      - DEVICE=cpu
+      - LOG_LEVEL=INFO
+      - CORS_ORIGINS=http://localhost:3000
+
+  # gradio:
+  #   build: ./backend
+  #   command: python gradio_app.py
+  #   ports:
+  #     - "7860:7860"

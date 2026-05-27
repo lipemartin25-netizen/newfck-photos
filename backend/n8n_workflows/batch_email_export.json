@@ -1,0 +1,44 @@
+{
+  "name": "AlbumAI - Batch Upload & Email Notification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "album-batch-upload",
+        "options": {}
+      },
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@newfkcphotos.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Your AlbumAI Split Images are ready!",
+        "html": "<h3>Success!</h3><p>Your photos were successfully separated and enhanced. Download ZIP here: <a href='{{ $json.zip_url }}'>Download Crops ZIP</a></p>",
+        "options": {}
+      },
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [400, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

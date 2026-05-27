@@ -1,0 +1,46 @@
+{
+  "name": "AlbumAI - Daily Cleanup of Uploads > 24 Hours",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyDay",
+              "hour": 3
+            }
+          ]
+        }
+      },
+      "name": "Cron Midnight Trigger",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "command": "find /app/uploads -type f -mtime +1 -delete",
+        "options": {}
+      },
+      "name": "Execute Linux Find & Delete",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [350, 300]
+    }
+  ],
+  "connections": {
+    "Cron Midnight Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Linux Find & Delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {}
+}
