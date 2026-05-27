@@ -12,7 +12,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, UploadFile, File, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
 from PIL import Image
 
 from app.core.config import (
