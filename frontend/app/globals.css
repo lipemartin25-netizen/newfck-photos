@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;          /* #FAFAFA */
+    --foreground: 224 71.4% 4.1%;    /* #0F172A */
+    
+    --primary: 239 84% 67%;          /* #6366F1 */
+    --primary-hover: 243 75% 59%;    /* #4F46E5 */
+    
+    --accent: 263 90% 66%;           /* #8B5CF6 */
+    
+    --success: 162 76% 41%;          /* #10B981 */
+    --warning: 38 92% 50%;           /* #F59E0B */
+    --danger: 0 84% 60%;             /* #EF4444 */
+    
+    --review-frame: 0 72% 51%;       /* #DC2626 */
+    
+    --border: 214.3 31.8% 91.4%;     /* #E2E8F0 */
+    --radius: 0.75rem;               /* 12px */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;    /* #0F172A */
+    --foreground: 210 40% 98%;       /* #F8FAFC */
+    --border: 217.2 32.6% 17.5%;     /* #1E293B */
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg dark:bg-slate-900/70 dark:border-slate-800/50;
+  }
+}
